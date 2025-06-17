@@ -59,7 +59,7 @@ const SignUpPage = () => {
                 <span className="label-text font-medium">Full Name</span>
               </label>
               <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none z-11">
                   <User className="size-5 text-base-content/40" />
                 </div>
                 <input
@@ -77,7 +77,7 @@ const SignUpPage = () => {
                 <span className="label-text font-medium">Email</span>
               </label>
               <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none z-11">
                   <Mail className="size-5 text-base-content/40" />
                 </div>
                 <input
@@ -95,7 +95,7 @@ const SignUpPage = () => {
                 <span className="label-text font-medium">Password</span>
               </label>
               <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none z-11">
                   <Lock className="size-5 text-base-content/40" />
                 </div>
                 <input
@@ -107,7 +107,7 @@ const SignUpPage = () => {
                 />
                 <button
                   type="button"
-                  className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center z-11"
                   onClick={() => setShowPassword(!showPassword)}
                 >
                   {showPassword ? (
