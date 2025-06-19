@@ -1,42 +1,92 @@
-# ✨ Full Stack Realtime Chat App ✨
+# Real-Time Chat Application
 
-![Demo App](/frontend/public/screenshot-for-readme.png)
+A modern real-time chat application built with MERN stack (MongoDB, Express.js, React, Node.js) and Socket.IO.
 
-[Video Tutorial on Youtube](https://youtu.be/ntKkVrQqBYY)
+## Features
 
-Highlights:
+- 🔐 User authentication
+- 💬 Real-time messaging
+- 👤 User profiles
+- 🌙 Dark/Light mode support
+- 📱 Responsive design
 
-- 🌟 Tech stack: MERN + Socket.io + TailwindCSS + Daisy UI
-- 🎃 Authentication && Authorization with JWT
-- 👾 Real-time messaging with Socket.io
-- 🚀 Online user status
-- 👌 Global state management with Zustand
-- 🐞 Error handling both on the server and on the client
-- ⭐ At the end Deployment like a pro for FREE!
-- ⏳ And much more!
+## Tech Stack
 
-### Setup .env file
+### Frontend
+- React
+- Tailwind CSS
+- Zustand (State Management)
+- Socket.IO Client
 
-```js
-MONGODB_URI=...
-PORT=5001
-JWT_SECRET=...
+### Backend
+- Node.js
+- Express.js
+- MongoDB
+- Socket.IO
+- JWT Authentication
 
-CLOUDINARY_CLOUD_NAME=...
-CLOUDINARY_API_KEY=...
-CLOUDINARY_API_SECRET=...
+## Getting Started
 
-NODE_ENV=development
+### Prerequisites
+- Node.js (v14 or higher)
+- MongoDB
+- npm or yarn
+
+### Installation
+
+1. Clone the repository
+```bash
+git clone https://github.com/yourusername/chat-app.git
+cd chat-app
 ```
 
-### Build the app
+2. Install dependencies
+```bash
+# Install backend dependencies
+cd backend
+npm install
 
-```shell
-npm run build
+# Install frontend dependencies
+cd ../frontend
+npm install
 ```
 
-### Start the app
+3. Environment Setup
+```bash
+# Backend .env
+PORT=5000
+MONGODB_URI=your_mongodb_uri
+JWT_SECRET=your_jwt_secret
 
-```shell
-npm start
+# Frontend .env
+VITE_API_BASE_URL=http://localhost:5000
 ```
+
+4. Start the application
+```bash
+# Start backend server
+cd backend
+npm run dev
+
+# Start frontend in new terminal
+cd frontend
+npm run dev
+```
+
+## API Endpoints
+
+### Auth Routes
+- `POST /api/auth/signup` - Register a new user
+- `POST /api/auth/login` - Login user
+- `GET /api/auth/logout` - Logout user
+- `GET /api/auth/check` - Check auth status
+
+### Message Routes
+- `GET /api/messages/:id` - Get messages for a conversation
+- `POST /api/messages` - Send a new message
+
+## Acknowledgments
+
+- Socket.IO Documentation
+- MongoDB Documentation
+- React Documentation
