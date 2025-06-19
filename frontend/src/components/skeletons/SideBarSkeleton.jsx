@@ -1,5 +1,5 @@
 import { Users } from "lucide-react";
-
+// corrected the name of the file SidebarSkeleton.jsx
 const SidebarSkeleton = () => {
   // Create 8 skeleton items
   const skeletonContacts = Array(8).fill(null);
