@@ -21,7 +21,7 @@ const SignUpPage = () => {
     if (!formData.email.trim()) return toast.error("Email is required");
     if (!/\S+@\S+\.\S+/.test(formData.email)) return toast.error("Invalid email format");
     if (!formData.password) return toast.error("Password is required");
-    if (formData.password.length < 8) return toast.error("Password must be at least 8 characters");
+    if (formData.password.length < 6) return toast.error("Password must be at least 6 characters");
 
     return true;
   };
@@ -59,7 +59,7 @@ const SignUpPage = () => {
                 <span className="label-text font-medium">Full Name</span>
               </label>
               <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none z-11">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                   <User className="size-5 text-base-content/40" />
                 </div>
                 <input
@@ -77,7 +77,7 @@ const SignUpPage = () => {
                 <span className="label-text font-medium">Email</span>
               </label>
               <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none z-11">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                   <Mail className="size-5 text-base-content/40" />
                 </div>
                 <input
@@ -95,7 +95,7 @@ const SignUpPage = () => {
                 <span className="label-text font-medium">Password</span>
               </label>
               <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none z-11">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                   <Lock className="size-5 text-base-content/40" />
                 </div>
                 <input
@@ -107,7 +107,7 @@ const SignUpPage = () => {
                 />
                 <button
                   type="button"
-                  className="absolute inset-y-0 right-0 pr-3 flex items-center z-11"
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center"
                   onClick={() => setShowPassword(!showPassword)}
                 >
                   {showPassword ? (
@@ -151,6 +151,4 @@ const SignUpPage = () => {
     </div>
   );
 };
-
-
 export default SignUpPage;
