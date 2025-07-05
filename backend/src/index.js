@@ -58,4 +58,5 @@ if (process.env.NODE_ENV === "production") {
 server.listen(PORT, () => {
   console.log("server is running on PORT:" + PORT);
   connectDB();
+  console.log("Google callback route hit and redirecting to client", process.env.CLIENT_URL); 
 });
