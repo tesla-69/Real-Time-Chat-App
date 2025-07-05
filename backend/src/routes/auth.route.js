@@ -22,6 +22,7 @@ router.get(
     const { generateToken } = await import("../lib/utils.js");
     generateToken(req.user._id, res);
     res.redirect(process.env.CLIENT_URL || "http://localhost:5173");
+    console.log("Google callback route hit and redirecting to client", process.env.CLIENT_URL); 
   }
 );
 
