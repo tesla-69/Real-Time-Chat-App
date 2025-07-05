@@ -1,13 +1,37 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { useChatStore } from "../store/useChatStore";
 import { Image, Send, X } from "lucide-react";
 import toast from "react-hot-toast";
+import Picker from '@emoji-mart/react';
+import data from '@emoji-mart/data';
 
 const MessageInput = () => {
   const [text, setText] = useState("");
   const [imagePreview, setImagePreview] = useState(null);
+  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+  const inputRef = useRef(null);
   const fileInputRef = useRef(null);
+  const emojiPickerRef = useRef(null);
+  const emojiButtonRef = useRef(null);
   const { sendMessage } = useChatStore();
+
+  useEffect(() => {
+    if (!showEmojiPicker) return;
+    function handleClickOutside(event) {
+      if (
+        emojiPickerRef.current &&
+        !emojiPickerRef.current.contains(event.target) &&
+        emojiButtonRef.current &&
+        !emojiButtonRef.current.contains(event.target)
+      ) {
+        setShowEmojiPicker(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [showEmojiPicker]);
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -26,6 +50,15 @@ const MessageInput = () => {
   const removeImage = () => {
     setImagePreview(null);
     if (fileInputRef.current) fileInputRef.current.value = "";
+  };
+
+  const addEmoji = (emoji) => {
+    if (!inputRef.current) return;
+    const cursor = inputRef.current.selectionStart;
+    const newText = text.slice(0, cursor) + emoji.native + text.slice(cursor);
+    setText(newText);
+    // setShowEmojiPicker(false);
+    setTimeout(() => inputRef.current.focus(), 0);
   };
 
   const handleSendMessage = async (e) => {
@@ -48,7 +81,7 @@ const MessageInput = () => {
   };
 
   return (
-    <div className="p-4 w-full">
+    <div className="p-4 w-full" style={{ position: "relative" }}>
       {imagePreview && (
         <div className="mb-3 flex items-center gap-2">
           <div className="relative">
@@ -70,8 +103,27 @@ const MessageInput = () => {
       )}
 
       <form onSubmit={handleSendMessage} className="flex items-center gap-2">
-        <div className="flex-1 flex gap-2">
+        <div className="flex-1 flex gap-2 items-center relative">
+          <button
+            type="button"
+            className="btn btn-circle text-zinc-400"
+            style={{ minWidth: 36, minHeight: 36 }}
+            onClick={() => setShowEmojiPicker((val) => !val)}
+            tabIndex={-1}
+            ref={emojiButtonRef}
+          >
+            <span role="img" aria-label="emoji">😊</span>
+          </button>
+          {showEmojiPicker && (
+            <div
+              ref={emojiPickerRef}
+              style={{ position: "absolute", bottom: 50, left: 0, zIndex: 20 }}
+            >
+              <Picker data={data} onEmojiSelect={addEmoji} theme="light" />
+            </div>
+          )}
           <input
+            ref={inputRef}
             type="text"
             className="w-full input input-bordered rounded-lg input-sm sm:input-md"
             placeholder="Type a message..."
@@ -85,7 +137,6 @@ const MessageInput = () => {
             ref={fileInputRef}
             onChange={handleImageChange}
           />
-
           <button
             type="button"
             className={`hidden sm:flex btn btn-circle
