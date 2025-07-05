@@ -11,6 +11,9 @@ import authRoutes from "./routes/auth.route.js";
 import messageRoutes from "./routes/message.route.js";
 import { app, server } from "./lib/socket.js";
 
+import session from "express-session";
+import passport from "./lib/passport.js";
+
 dotenv.config();
 
 const PORT = process.env.PORT;
@@ -26,6 +29,20 @@ app.use(
     credentials: true,
   })
 );
+
+// Add session middleware BEFORE passport
+app.use(
+  session({
+    secret: process.env.JWT_SECRET || "your_secret_key",
+    resave: false,
+    saveUninitialized: false,
+    cookie: { secure: false }, // set secure: true if using HTTPS in production
+  })
+);
+
+// Initialize passport and session
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
