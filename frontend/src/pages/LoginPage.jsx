@@ -111,10 +111,7 @@ const LoginPage = () => {
               type="button"
               className="btn btn-outline w-full flex items-center justify-center gap-2"
               onClick={() => {
-                const baseURL =
-                  import.meta.env.MODE === "development"
-                    ? "http://localhost:5000"
-                    : "https://chit-chat-x3ko.onrender.com"; // <-- set your Render backend URL here
+                const baseURL = import.meta.env.MODE === "development" ? "http://localhost:5000" : "https://chit-chat-x3ko.onrender.com";
                 window.location.href = `${baseURL}/api/auth/google`;
               }}
             >

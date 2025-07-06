@@ -25,7 +25,9 @@ app.use(express.urlencoded({ extended: true, limit: "50mb" }));
 app.use(cookieParser());
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: process.env.NODE_ENV === "production" 
+      ? process.env.CLIENT_URL 
+      : "http://localhost:5173",
     credentials: true,
   })
 );
@@ -36,7 +38,11 @@ app.use(
     secret: process.env.JWT_SECRET || "your_secret_key",
     resave: false,
     saveUninitialized: false,
-    cookie: { secure: false }, // set secure: true if using HTTPS in production
+    cookie: { 
+      secure: process.env.NODE_ENV === "production", // secure for HTTPS in production
+      httpOnly: true,
+      maxAge: 24 * 60 * 60 * 1000 // 24 hours
+    },
   })
 );
 
@@ -58,5 +64,5 @@ if (process.env.NODE_ENV === "production") {
 server.listen(PORT, () => {
   console.log("server is running on PORT:" + PORT);
   connectDB();
-  console.log("Google callback route hit and redirecting to client", process.env.CLIENT_URL); 
+  // console.log("Google callback route hit and redirecting to client", process.env.CLIENT_URL); 
 });
