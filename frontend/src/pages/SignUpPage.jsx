@@ -158,9 +158,13 @@ const SignUpPage = () => {
             <button
               type="button"
               className="btn btn-outline w-full flex items-center justify-center gap-2"
-              onClick={() =>
-                (window.location.href = "http://localhost:5000/api/auth/google")
-              }
+              onClick={() => {
+                const baseURL =
+                  import.meta.env.MODE === "development"
+                    ? "http://localhost:5000"
+                    : "https://chit-chat-x3ko.onrender.com"; // <-- set your Render backend URL here
+                window.location.href = `${baseURL}/api/auth/google`;
+              }}
             >
               <img
                 src="https://www.svgrepo.com/show/475656/google-color.svg"

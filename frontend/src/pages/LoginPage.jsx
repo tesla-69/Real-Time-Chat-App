@@ -111,7 +111,7 @@ const LoginPage = () => {
               type="button"
               className="btn btn-outline w-full flex items-center justify-center gap-2"
               onClick={() =>
-                (window.location.href = "http://localhost:5000/api/auth/google")
+                (window.location.href = `$}/api/auth/google`)
               }
             >
               <img
