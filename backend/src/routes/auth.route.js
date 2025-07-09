@@ -30,20 +30,17 @@ router.get(
     session: false,
   }),
   async (req, res) => {
-    const { generateToken } = await import("../lib/utils.js");
-    generateToken(req.user._id, res);
+  const { generateToken } = await import("../lib/utils.js");
+  generateToken(req.user._id, res);
 
-    const isProduction = process.env.NODE_ENV === "production";
-    const clientURL = isProduction
-      ? process.env.CLIENT_URL
-      : "http://localhost:5173";
+  const clientURL = process.env.CLIENT_URL || "http://localhost:5173";
 
-    res.redirect(clientURL);
-    console.log(
-      "Google callback route hit and redirecting to client",
-      clientURL
-    );
-  }
+  res.redirect(clientURL);
+  console.log(
+    "Google callback route hit and redirecting to client",
+    clientURL
+  );
+}
 );
 
 export default router;

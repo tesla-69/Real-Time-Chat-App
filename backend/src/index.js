@@ -25,9 +25,7 @@ app.use(express.urlencoded({ extended: true, limit: "50mb" }));
 app.use(cookieParser());
 app.use(
   cors({
-    origin: process.env.NODE_ENV === "production" 
-      ? process.env.CLIENT_URL 
-      : "http://localhost:5173",
+    origin: true, // Reflects the request origin
     credentials: true,
   })
 );
@@ -38,10 +36,10 @@ app.use(
     secret: process.env.JWT_SECRET || "your_secret_key",
     resave: false,
     saveUninitialized: false,
-    cookie: { 
-      secure: process.env.NODE_ENV === "production", // secure for HTTPS in production
+    cookie: {
+      secure: false, // Always allow cookies over HTTP and HTTPS
       httpOnly: true,
-      maxAge: 24 * 60 * 60 * 1000 // 24 hours
+      maxAge: 24 * 60 * 60 * 1000, // 24 hours
     },
   })
 );
@@ -53,16 +51,15 @@ app.use(passport.session());
 app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
 
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "../frontend/dist")));
+// if (process.env.NODE_ENV === "production") {
+app.use(express.static(path.join(__dirname, "../frontend/dist")));
 
-  app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"));
-  });
-}
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"));
+});
+// }
 
 server.listen(PORT, () => {
   console.log("server is running on PORT:" + PORT);
   connectDB();
-  // console.log("Google callback route hit and redirecting to client", process.env.CLIENT_URL); 
 });
