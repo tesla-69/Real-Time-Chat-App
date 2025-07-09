@@ -33,7 +33,7 @@ router.get(
   const { generateToken } = await import("../lib/utils.js");
   generateToken(req.user._id, res);
 
-  const clientURL = process.env.CLIENT_URL || "http://localhost:5173";
+  const clientURL = "https://chit-chat-x3ko.onrender.com";
 
   res.redirect(clientURL);
   console.log(
