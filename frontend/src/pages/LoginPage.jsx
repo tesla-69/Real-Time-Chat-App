@@ -27,7 +27,7 @@ const LoginPage = () => {
             <div className="flex flex-col items-center gap-2 group">
               <div
                 className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20
-              transition-colors"
+                transition-colors"
               >
                 <MessageSquare className="w-6 h-6 text-primary" />
               </div>
@@ -105,13 +105,22 @@ const LoginPage = () => {
             </button>
           </form>
 
+          {/* START OF ADDED CODE */}
+          <div className="divider text-sm text-base-content/60 font-medium">
+            OR
+          </div>
+          {/* END OF ADDED CODE */}
+
           {/* Google Sign In Button */}
           <div className="my-4">
             <button
               type="button"
               className="btn btn-outline w-full flex items-center justify-center gap-2"
               onClick={() => {
-                const baseURL = import.meta.env.MODE === "development" ? "http://localhost:5000" : "https://chit-chat-x3ko.onrender.com";
+                const baseURL =
+                  import.meta.env.MODE === "development"
+                    ? "http://localhost:5000"
+                    : "https://chit-chat-x3ko.onrender.com";
                 window.location.href = `${baseURL}/api/auth/google`;
               }}
             >
